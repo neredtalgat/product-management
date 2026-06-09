@@ -1,0 +1,59 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Nike Air Max",
+      "sku": "NK-001",
+      "price": 120,
+      "stock": 50,
+      "category": "Shoes",
+      "status": "active",
+      "imageUrl": "https://placehold.co/64x64?text=NK",
+      "updatedAt": "2026-06-01T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Adidas Hoodie",
+      "sku": "AD-002",
+      "price": 75,
+      "stock": 0,
+      "category": "Clothing",
+      "status": "draft",
+      "imageUrl": "https://placehold.co/64x64?text=AD",
+      "updatedAt": "2026-06-03T14:30:00Z"
+    },
+    {
+      "id": "3",
+      "name": "Levi's 501",
+      "sku": "LV-003",
+      "price": 90,
+      "stock": 30,
+      "category": "Clothing",
+      "status": "active",
+      "imageUrl": "https://placehold.co/64x64?text=LV",
+      "updatedAt": "2026-06-05T09:15:00Z"
+    },
+    {
+      "id": "4",
+      "name": "Sony WH-1000XM5",
+      "sku": "SN-004",
+      "price": 350,
+      "stock": 15,
+      "category": "Electronics",
+      "status": "active",
+      "imageUrl": "https://placehold.co/64x64?text=SN",
+      "updatedAt": "2026-06-07T11:00:00Z"
+    },
+    {
+      "id": "5",
+      "name": "Zara Jacket",
+      "sku": "ZR-005",
+      "price": 110,
+      "stock": 8,
+      "category": "Clothing",
+      "status": "archived",
+      "imageUrl": "https://placehold.co/64x64?text=ZR",
+      "updatedAt": "2026-05-20T16:45:00Z"
+    }
+  ]
+}
