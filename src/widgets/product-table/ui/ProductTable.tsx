@@ -9,29 +9,37 @@ import {
   type RowSelectionState,
   type SortingState,
 } from '@tanstack/react-table'
+import { useNotification } from '@shared/lib/notification'
 import {
-  Box, Checkbox, IconButton, Paper, Table, TableBody,
+  Box, Checkbox, IconButton, Paper, Skeleton ,Table, TableBody,
   TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Tooltip,
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined'
 import { useGetProductsQuery, useDeleteProductMutation, ProductStatusBadge, ProductImage } from '@entities/product'
-import type { Product } from '@entities/product'
+import type { Product, ProductFilters} from '@entities/product'
 import { BulkActionsToolbar } from '@features/bulk-actions'
 import { ExportCsvButton } from '@features/export-csv'
 import { EditProductDrawer } from '@features/edit-product'
 
 const col = createColumnHelper<Product>()
+  interface Props {
+    filters: ProductFilters
+  }
 
-export const ProductTable = () => {
+export const ProductTable = ({filters}: Props) => {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
   const [sorting, setSorting] = useState<SortingState>([])
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
 
-  const { data: products = [], isLoading } = useGetProductsQuery({})
+  const { data: products = [], isLoading } = useGetProductsQuery(filters)
   const [deleteProduct] = useDeleteProductMutation()
+
+  const notify = useNotification()
+
+
 
   const columns = useMemo(() => [
     col.display({
@@ -92,14 +100,23 @@ export const ProductTable = () => {
             </IconButton>
           </Tooltip>
           <Tooltip title="Удалить">
-            <IconButton size="small" color="error" onClick={() => deleteProduct(row.original.id)}>
-              <DeleteOutlineIcon fontSize="small" />
+            <IconButton size="small" color="error" 
+              onClick={async () => {
+                try {
+                  await deleteProduct(row.original.id).unwrap()
+                  notify('Товар удалён')
+                } catch {
+                  notify('Ошибка при удалении', 'error')
+                }
+              }}
+              >
+                <DeleteOutlineIcon fontSize='small'/>
             </IconButton>
           </Tooltip>
         </Box>
       ),
     }),
-  ], [deleteProduct])
+  ], [deleteProduct, notify])
 
   const table = useReactTable({
     data: products,
@@ -113,7 +130,35 @@ export const ProductTable = () => {
     pageCount: Math.ceil(products.length / rowsPerPage),
   })
 
-  if (isLoading) return <Box p={3}>Загрузка...</Box>
+  if (isLoading) return (
+  <Box>
+    <TableContainer component={Paper}>
+      <Table size="small">
+        <TableBody>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <TableRow key={i}>
+              <TableCell><Skeleton variant="rectangular" width={20} height={20} /></TableCell>
+              <TableCell>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                  <Skeleton variant="circular" width={36} height={36} />
+                  <Box>
+                    <Skeleton width={120} height={16} />
+                    <Skeleton width={80} height={12} sx={{ mt: 0.5 }} />
+                  </Box>
+                </Box>
+              </TableCell>
+              <TableCell><Skeleton width={60} /></TableCell>
+              <TableCell><Skeleton width={40} /></TableCell>
+              <TableCell><Skeleton variant="rounded" width={70} height={24} /></TableCell>
+              <TableCell><Skeleton width={60} /></TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  </Box>
+)
+
 
   return (
     <Box>

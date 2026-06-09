@@ -9,7 +9,16 @@ export const productApi = createApi({
   endpoints: (builder) => ({
 
     getProducts: builder.query<Product[], ProductFilters>({
-      query: (filters) => ({ url: '/products', params: filters }),
+      query: ({ name, category, status, minPrice, maxPrice }) => ({
+        url: '/products',
+        params: {
+          ...(name && { name_like: name }),
+          ...(category && { category }),
+          ...(status && { status }),
+          ...(minPrice !== undefined && { price_gte: minPrice }),
+          ...(maxPrice !== undefined && { price_lte: maxPrice }),
+        },
+      }),
       providesTags: (result) =>
         result
           ? [
@@ -17,6 +26,11 @@ export const productApi = createApi({
               { type: 'Product', id: 'LIST' },
             ]
           : [{ type: 'Product', id: 'LIST' }],
+    }),
+
+    createProduct: builder.mutation<Product, Omit<Product, 'id'>>({
+      query: (body) => ({ url: '/products', method: 'POST', body }),
+      invalidatesTags: [{ type: 'Product', id: 'LIST' }],
     }),
 
     updateProduct: builder.mutation<Product, Partial<Product> & { id: string }>({
@@ -44,6 +58,7 @@ export const productApi = createApi({
 
 export const {
   useGetProductsQuery,
+  useCreateProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
 } = productApi

@@ -1,21 +1,10 @@
 {
   "products": [
     {
-      "id": "1",
-      "name": "Nike Air Max",
-      "sku": "NK-001",
-      "price": 120,
-      "stock": 50,
-      "category": "Shoes",
-      "status": "active",
-      "imageUrl": "https://placehold.co/64x64?text=NK",
-      "updatedAt": "2026-06-01T10:00:00Z"
-    },
-    {
       "id": "2",
       "name": "Adidas Hoodie",
       "sku": "AD-002",
-      "price": 75,
+      "price": 45,
       "stock": 0,
       "category": "Clothing",
       "status": "draft",
@@ -55,5 +44,6 @@
       "imageUrl": "https://placehold.co/64x64?text=ZR",
       "updatedAt": "2026-05-20T16:45:00Z"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
