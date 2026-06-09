@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   createColumnHelper,
   flexRender,
@@ -38,6 +39,7 @@ export const ProductTable = ({filters}: Props) => {
   const [deleteProduct] = useDeleteProductMutation()
 
   const notify = useNotification()
+  const navigate = useNavigate()
 
 
 
@@ -66,7 +68,14 @@ export const ProductTable = ({filters}: Props) => {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
           <ProductImage product={row.original} />
           <Box>
-            <Box fontWeight={500}>{row.original.name}</Box>
+            <Box
+              fontWeight={500}
+              sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}
+              onClick={() => navigate(`/products/${row.original.id}`)}
+            >
+              {row.original.name}
+            </Box>
+
             <Box fontSize={12} color="text.secondary">{row.original.sku}</Box>
           </Box>
         </Box>

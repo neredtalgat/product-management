@@ -2,6 +2,7 @@ export type { Product, ProductStatus, ProductFilters } from './model/types'
 export {
   productApi,
   useGetProductsQuery,
+  useGetProductByIdQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,
   useCreateProductMutation
