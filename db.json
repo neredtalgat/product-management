@@ -12,17 +12,6 @@
       "updatedAt": "2026-06-03T14:30:00Z"
     },
     {
-      "id": "3",
-      "name": "Levi's 501",
-      "sku": "LV-003",
-      "price": 90,
-      "stock": 30,
-      "category": "Clothing",
-      "status": "active",
-      "imageUrl": "https://placehold.co/64x64?text=LV",
-      "updatedAt": "2026-06-05T09:15:00Z"
-    },
-    {
       "id": "4",
       "name": "Sony WH-1000XM5",
       "sku": "SN-004",

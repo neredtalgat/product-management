@@ -2,9 +2,8 @@ import { Provider } from 'react-redux'
 import { store } from '@app/store'
 import type { ReactNode } from 'react'
 import {NotificationProvider} from '@shared/lib/notification'
-import { ThemeProvider, createTheme, CssBaseline} from '@mui/material'
-
-const theme = createTheme()
+import { ThemeProvider, CssBaseline} from '@mui/material'
+import { theme } from '@app/styles/theme'
 
 interface Props {
   children: ReactNode
